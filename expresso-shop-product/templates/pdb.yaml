@@ -1,0 +1,10 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: expresso-product
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:  
+       app: expresso-shop-product
+       {{- include "expresso-shop-product.selectorLabels" . | nindent 4 }}

@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: expresso-shop-reviews-deployment-v1
+  #name: {{ include "expresso-shop-reviews.fullname" . }}
+  labels:
+    #app: expresso-shop-reviews-v1
+    #version: v1
+    app: {{ .Values.app_name  }}
+    # {{- include "expresso-shop-reviews.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app_name }}
+     # {{- include "expresso-shop-reviews.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      # {{- with .Values.podAnnotations }}
+      # annotations:
+      #   {{- toYaml . | nindent 8 }}
+      # {{- end }}
+      labels:
+        app: {{ .Values.app_name }}
+        version: v1
+        # {{- include "expresso-shop-reviews.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: serviceaccv1 #{{ include "expresso-shop-reviews.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          envFrom:
+            - secretRef:
+                name: reviews-to-postgress-secret
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80 #{{ .Values.service.port }}
+              protocol: TCP
+          env: 
+          - name: SERVICE_VERSION
+            value: v1
+
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

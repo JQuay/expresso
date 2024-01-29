@@ -1,0 +1,109 @@
+---
+# Source: expresso-shop-product/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: release-name-expresso-shop-product
+  labels:
+    helm.sh/chart: expresso-shop-product-0.1.0
+    app.kubernetes.io/name: expresso-shop-product
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: expresso-shop-product/templates/expresso-shop-product-catalog-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: expresso-shop-product-catalog-svc
+  # name: release-name-expresso-shop-product
+  labels: 
+    name: expresso-shop-product-catalog-svc
+    helm.sh/chart: expresso-shop-product-0.1.0
+    app.kubernetes.io/name: expresso-shop-product
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8091
+      targetPort: 80
+      protocol: TCP
+      name: http
+  selector:
+    app: expresso-shop-product
+    app.kubernetes.io/name: expresso-shop-product
+    app.kubernetes.io/instance: release-name
+---
+# Source: expresso-shop-product/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: release-name-expresso-shop-product
+  labels:
+    app: expresso-shop-product
+    version: v1
+    helm.sh/chart: expresso-shop-product-0.1.0
+    app.kubernetes.io/name: expresso-shop-product
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: expresso-shop-product
+      app.kubernetes.io/name: expresso-shop-product
+      app.kubernetes.io/instance: release-name
+  template:
+    metadata:
+      labels:
+        app: expresso-shop-product
+        app.kubernetes.io/name: expresso-shop-product
+        app.kubernetes.io/instance: release-name
+    spec:
+      serviceAccountName: release-name-expresso-shop-product
+      securityContext:
+        {}
+      containers:
+        - name: expresso-shop-product
+          securityContext:
+            {}
+          image: "nginx:1.16.0"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8091
+              protocol: TCP
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          resources:
+            {}
+---
+# Source: expresso-shop-product/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "release-name-expresso-shop-product-test-connection"
+  labels:
+    helm.sh/chart: expresso-shop-product-0.1.0
+    app.kubernetes.io/name: expresso-shop-product
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['release-name-expresso-shop-product:8091']
+  restartPolicy: Never

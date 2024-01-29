@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.app_name }}-svc
+   #name: {{ include "expresso-shop-reviews.fullname" . }}
+  
+  labels:
+    #app: expresso-shop-reviews-v1
+    # app2: expresso-shop-reviews-v2
+    app: {{ .Values.app_name }}
+    version: v1
+    version2: v2
+    #{{- include "expresso-shop-reviews.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 80
+      protocol: TCP
+      name: http
+  selector:
+    # app: expresso-shop-reviews-v1
+    # app2: expresso-shop-reviews-v2
+    #version2: v2
+    #version: v1
+    app: {{ .Values.app_name }}
+
+    
+    # {{- include "expresso-shop-reviews.selectorLabels" . | nindent 4 }}

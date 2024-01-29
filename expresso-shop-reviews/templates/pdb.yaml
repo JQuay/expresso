@@ -1,0 +1,10 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: expresso-reviews-1
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:  
+       app: expresso-shop-reviews-v1
+       {{- include "expresso-shop-reviews.selectorLabels" . | nindent 4 }}

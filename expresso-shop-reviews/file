@@ -1,0 +1,222 @@
+ld
+---
+# Source: expresso-shop-reviews/templates/pdb.yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: expresso-reviews-1
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:  
+       app: expresso-shop-reviews-v1
+    app.kubernetes.io/name: expresso-shop-reviews
+    app.kubernetes.io/instance: release-name
+---
+# Source: expresso-shop-reviews/templates/pdb2.yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: expresso-reviews-2
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:  
+       app2: expresso-shop-reviews-v2
+       version2: v2
+    app.kubernetes.io/name: expresso-shop-reviews
+    app.kubernetes.io/instance: release-name
+---
+# Source: expresso-shop-reviews/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: serviceaccv1
+  #name: release-name-expresso-shop-reviews
+  labels:
+    app: expresso-shop-reviews-v1
+    helm.sh/chart: expresso-shop-reviews-0.1.0
+    app.kubernetes.io/name: expresso-shop-reviews
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: expresso-shop-reviews/templates/serviceaccount2.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: serviceaccv2
+  #name: release-name-expresso-shop-reviews
+  labels:
+    app2: expresso-shop-reviews-v2
+    helm.sh/chart: expresso-shop-reviews-0.1.0
+    app.kubernetes.io/name: expresso-shop-reviews
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: expresso-shop-reviews/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: reviews-to-postgress-secret
+type: Opaque
+data:
+  username: "cG9zdGdyZXM="
+  password: "cG9zdGdyZXM="
+  database: "cG9zdGdyZXM="
+---
+# Source: expresso-shop-reviews/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: expresso-shop-review-svc
+  # name: release-name-expresso-shop-reviews
+  labels:
+    app: expresso-shop-reviews-v1
+    # app2: expresso-shop-reviews-v2
+    name: expresso-shop-review-svc
+    #version: v1
+    # version2: v2
+   #
+    helm.sh/chart: expresso-shop-reviews-0.1.0
+    app.kubernetes.io/name: expresso-shop-reviews
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8092
+      targetPort: 80
+      protocol: TCP
+      name: http
+  selector:
+    app: expresso-shop-reviews-v1
+    # app2: expresso-shop-reviews-v2
+    # version2: v2
+    version: v1
+    app.kubernetes.io/name: expresso-shop-reviews
+    app.kubernetes.io/instance: release-name
+---
+# Source: expresso-shop-reviews/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: expresso-shop-reviews-deployment-v1
+  #name: release-name-expresso-shop-reviews
+  labels:
+    app: expresso-shop-reviews-v1
+    version: v1
+    helm.sh/chart: expresso-shop-reviews-0.1.0
+    app.kubernetes.io/name: expresso-shop-reviews
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: expresso-shop-reviews-v1
+      app.kubernetes.io/name: expresso-shop-reviews
+      app.kubernetes.io/instance: release-name
+  template:
+    metadata:
+      labels:
+        app: expresso-shop-reviews-v1
+        app.kubernetes.io/name: expresso-shop-reviews
+        app.kubernetes.io/instance: release-name
+    spec:
+      serviceAccountName: serviceaccv1 #release-name-expresso-shop-reviews
+      securityContext:
+        {}
+      containers:
+        - name: expresso-shop-reviews
+          securityContext:
+            {}
+          image: "nginx:1.16.0"
+          envFrom:
+            - secretRef:
+                name: reviews-to-postgress-secret
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80 #8092
+              protocol: TCP
+          env: 
+          - name: SERVICE_VERSION
+            value: v1
+
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          resources:
+            {}
+---
+# Source: expresso-shop-reviews/templates/deployment2.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: expresso-shop-reviews-deployment-v2
+  #name: release-name-expresso-shop-reviews
+  labels:
+    app2: expresso-shop-reviews-v2
+    version2: v2
+    #
+    helm.sh/chart: expresso-shop-reviews-0.1.0
+    app.kubernetes.io/name: expresso-shop-reviews
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app2: expresso-shop-reviews-v2
+      version2: v2
+      app.kubernetes.io/name: expresso-shop-reviews
+      app.kubernetes.io/instance: release-name
+  template:
+    metadata:
+      labels:
+        app2: expresso-shop-reviews-v2
+        version2: v2
+       #
+        app.kubernetes.io/name: expresso-shop-reviews
+        app.kubernetes.io/instance: release-name
+    spec:
+      serviceAccountName: serviceaccv2  #release-name-expresso-shop-reviews
+      securityContext:
+        {}
+      containers:
+        - name: expresso-shop-reviews
+          securityContext:
+            {}
+          image: "nginx:1.16.0"
+          envFrom:
+            - secretRef:
+                name: reviews-to-postgress-secret
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80 #8092
+              protocol: TCP
+          env: 
+          - name: SERVICE_VERSION
+            value: v2
+
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          resources:
+            {}
