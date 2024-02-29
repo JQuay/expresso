@@ -49,6 +49,7 @@ pipeline{
               tag: ${params.webtag} 
 
          EOF
+                ls -l
                    
                    """
                    }
