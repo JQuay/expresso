@@ -38,7 +38,7 @@ pipeline{
             script{
                    
                 sh """
-                cd   $WORKSPACE/expresso/expresso-shop-product
+                cd  /expresso/expresso-shop-product
      cat <<EOF > dev-values.yaml
 
              replicaCount: 1
