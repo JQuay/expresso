@@ -71,22 +71,6 @@ pipeline{
                 # Overrides the image tag whose default is the chart appVersion.
                 tag: ${params.webtag} 
           EOF
-
-                   """
-                   
-            }
-           }
-        }
-
-
-           stage('push'){
-            
-            when {
-                expression { params.ENVIRONMENT == 'Dev' } 
-            }
-            steps{
-                script{
-                    """
                 cd expresso
 
                 git config --global user.name "JQuay"
@@ -95,15 +79,16 @@ pipeline{
                 git add -A
                 git commit -m "commit from Jekins"
                 git push 
-
-                    """
-                }
+                   """
+                   
             }
            }
+        }
+
           
            stage('Deploy') {
             when {
-                expression { params.ENVIRONMENT == 'Dev' } // Only deploy if environment is not Dev
+                expression { params.ENVIRONMENT != 'Dev' } // Only deploy if environment is not Dev
             }
             steps {
                 script {
@@ -115,7 +100,7 @@ pipeline{
                 }
             }
         }
-    }
+    
 
 
 
@@ -264,10 +249,10 @@ pipeline{
 
 
 
-         stage('Cleaning WSpace') {
-            steps {
-                cleanWs() // Clean workspace before build
-            }
-        }
+        //  stage('Cleaning WSpace') {
+        //     steps {
+        //         cleanWs() // Clean workspace before build
+        //     }
+        // }
     }
 }
