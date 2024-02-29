@@ -44,7 +44,6 @@ pipeline{
 
                 rm -rf expresso || true 
                 git clone https://github.com/JQuay/expresso.git
-                git remote add origin https://github.com/JQuay/expresso.git || true
                 cd expresso
 
         cat <<EOF > expresso-shop-product/dev-values.yaml
@@ -77,6 +76,9 @@ pipeline{
                 # Overrides the image tag whose default is the chart appVersion.
                 tag: ${params.webtag} 
           EOF
+                cd -
+                cd  $WORKSPACE/expresso 
+
                 git add -A
                 git commit -m "commit from Jekins"
                 git push origin main
