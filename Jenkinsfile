@@ -82,7 +82,6 @@ pipeline{
 
                 git config --global user.name "JQuay"
                 git config --global user.email "josephquayson877@gmail.com"
-                git remote set origin https://JQuay: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@github.com/JQuay/expresso.git || true
 
                 git add -A
                 git commit -m "commit from Jekins"
