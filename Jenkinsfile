@@ -78,23 +78,40 @@ pipeline{
            }
         }
 
-          
-           stage('push') {
+
+           stage('push'){
+            
             when {
-                expression { params.ENVIRONMENT == 'Dev' } // Only deploy if environment is not Dev
+                expression { params.ENVIRONMENT == 'Dev' } 
             }
-            steps {
-                script {
+            steps{
+                script{
                     """
+                cd expresso
+
                 git config --global user.name "JQuay"
                 git config --global user.email "jquayson182@gmail.com"
-                cd expresso/
 
                 git add -A
                 git commit -m "commit from Jekins"
                 git push 
 
                     """
+                }
+            }
+           }
+          
+           stage('Deploy') {
+            when {
+                expression { params.ENVIRONMENT == 'Dev' } // Only deploy if environment is not Dev
+            }
+            steps {
+                script {
+                    echo "Deploying to ${params.ENVIRONMENT} environment..."
+                    echo "Web Tag: ${params.webtag}"
+                    echo "Review Stage Tag: ${params.reviewstag}"
+                    echo "Show Web Tag: ${params.showebtag}"
+                    // Add deployment steps specific to each environment here
                 }
             }
         }
