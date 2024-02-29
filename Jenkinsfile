@@ -226,10 +226,10 @@ pipeline{
 
 
 
-        //  stage('Cleaning WSpace') {
-        //     steps {
-        //         cleanWs() // Clean workspace before build
-        //     }
-        // }
+         stage('Cleaning WSpace') {
+            steps {
+                cleanWs() // Clean workspace before build
+            }
+        }
     }
 }
