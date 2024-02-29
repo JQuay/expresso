@@ -15,12 +15,12 @@ pipeline{
         )
         string(
             name: 'reviewstag',
-            defaultValue: '',
+            defaultValue: 'latest',
             description: 'Enter the review image tag.'
         )
         string(
             name: 'prodtag',
-            defaultValue: '',
+            defaultValue: 'latest',
             description: 'Enter the product image tag.'
         )
     }
@@ -49,7 +49,26 @@ pipeline{
                 # Overrides the image tag whose default is the chart appVersion.
                 tag: ${params.webtag} 
           EOF
+
+        cat <<EOF > $WORKSPACE/expresso-shop-reviews/dev-values.yaml
+
+                replicaCount: 1
+                image:
+                repository: hossambarakat/espresso-shop-reviews
+                pullPolicy: IfNotPresent
+                # Overrides the image tag whose default is the chart appVersion.
+                tag: ${params.reviewstag} 
+          EOF
                     
+        cat <<EOF > $WORKSPACE/expresso-shop-web/dev-values.yaml
+
+                replicaCount: 1
+                image:
+                repository: hossambarakat/espresso-shop-web
+                pullPolicy: IfNotPresent
+                # Overrides the image tag whose default is the chart appVersion.
+                tag: ${params.webtag} 
+          EOF
                    """
                    
             }
@@ -66,6 +85,36 @@ pipeline{
             script{
                 sh """
                     echo "Deploying to ${params.ENVIRONMENT} environment..."
+        cat <<EOF > $WORKSPACE/expresso-shop-product/dev-values.yaml
+
+                replicaCount: 1
+
+                image:
+                repository: hossambarakat/espresso-shop-product-catalog
+                pullPolicy: IfNotPresent
+                # Overrides the image tag whose default is the chart appVersion.
+                tag: ${params.webtag} 
+          EOF
+
+        cat <<EOF > $WORKSPACE/expresso-shop-reviews/dev-values.yaml
+
+                replicaCount: 1
+                image:
+                repository: hossambarakat/espresso-shop-reviews
+                pullPolicy: IfNotPresent
+                # Overrides the image tag whose default is the chart appVersion.
+                tag: ${params.reviewstag} 
+          EOF
+                    
+        cat <<EOF > $WORKSPACE/expresso-shop-web/dev-values.yaml
+
+                replicaCount: 1
+                image:
+                repository: hossambarakat/espresso-shop-web
+                pullPolicy: IfNotPresent
+                # Overrides the image tag whose default is the chart appVersion.
+                tag: ${params.webtag} 
+          EOF
                    """
             }
            }
@@ -81,6 +130,36 @@ pipeline{
             script{
                 sh """
                     echo "Deploying to ${params.ENVIRONMENT} environment..."
+        cat <<EOF > $WORKSPACE/expresso-shop-product/dev-values.yaml
+
+                replicaCount: 1
+
+                image:
+                repository: hossambarakat/espresso-shop-product-catalog
+                pullPolicy: IfNotPresent
+                # Overrides the image tag whose default is the chart appVersion.
+                tag: ${params.webtag} 
+          EOF
+
+        cat <<EOF > $WORKSPACE/expresso-shop-reviews/dev-values.yaml
+
+                replicaCount: 1
+                image:
+                repository: hossambarakat/espresso-shop-reviews
+                pullPolicy: IfNotPresent
+                # Overrides the image tag whose default is the chart appVersion.
+                tag: ${params.reviewstag} 
+          EOF
+                    
+        cat <<EOF > $WORKSPACE/expresso-shop-web/dev-values.yaml
+
+                replicaCount: 1
+                image:
+                repository: hossambarakat/espresso-shop-web
+                pullPolicy: IfNotPresent
+                # Overrides the image tag whose default is the chart appVersion.
+                tag: ${params.webtag} 
+          EOF
                    """
             }
            }
@@ -94,6 +173,36 @@ pipeline{
             script{
                 sh """
                     echo "Deploying to ${params.ENVIRONMENT} environment..."
+        cat <<EOF > $WORKSPACE/expresso-shop-product/dev-values.yaml
+
+                replicaCount: 1
+
+                image:
+                repository: hossambarakat/espresso-shop-product-catalog
+                pullPolicy: IfNotPresent
+                # Overrides the image tag whose default is the chart appVersion.
+                tag: ${params.webtag} 
+          EOF
+
+        cat <<EOF > $WORKSPACE/expresso-shop-reviews/dev-values.yaml
+
+                replicaCount: 1
+                image:
+                repository: hossambarakat/espresso-shop-reviews
+                pullPolicy: IfNotPresent
+                # Overrides the image tag whose default is the chart appVersion.
+                tag: ${params.reviewstag} 
+          EOF
+                    
+        cat <<EOF > $WORKSPACE/expresso-shop-web/dev-values.yaml
+
+                replicaCount: 1
+                image:
+                repository: hossambarakat/espresso-shop-web
+                pullPolicy: IfNotPresent
+                # Overrides the image tag whose default is the chart appVersion.
+                tag: ${params.webtag} 
+          EOF
                    """
             }
            }
