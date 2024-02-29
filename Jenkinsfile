@@ -71,7 +71,7 @@ pipeline{
                 # Overrides the image tag whose default is the chart appVersion.
                 tag: ${params.webtag} 
           EOF
-                 sleep 1
+                cd expresso
 
                 git config --global user.name "JQuay"
                 git config --global user.email "jquayson182@gmail.com"
