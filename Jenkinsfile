@@ -38,9 +38,9 @@ pipeline{
             script{
                    
                 sh """
-                cd   $WORKSPACE/expresso/expresso-shop-product
+                  ls -l   $WORKSPACE/expresso/expresso-shop-product/
 
-                ls -l
+                
                    
                    """
                    
