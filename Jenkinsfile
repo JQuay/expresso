@@ -31,16 +31,16 @@ pipeline{
     stages{
 
 
-      stage('Cloning') {
-            steps {
-              script{
-                """
-                rm -rf expresso || true 
-                git clone https://github.com/JQuay/expresso.git
-                """
-              }
-            }
-        }
+    //   stage('Cloning') {
+    //         steps {
+    //           script{
+    //             """
+    //             rm -rf expresso || true 
+    //             git clone https://github.com/JQuay/expresso.git
+    //             """
+    //           }
+    //         }
+    //     }
 
         stage('Dev Deployment'){
 
@@ -81,6 +81,14 @@ pipeline{
         
 
                    """
+               sh """
+                git config --global user.name "JQuay"
+                git config --global user.email "josephquayson877@gmail.com"
+
+                git add -A
+                git commit -m "commit from Jekins"
+                git push origin main
+               """
                    
             }
            }
@@ -90,23 +98,23 @@ pipeline{
         
            
     
-      stage('update values file'){
+    //   stage('update values file'){
 
-        steps{
-            script{
-                """
-                cd $WORKSPACE/expresso
+    //     steps{
+    //         script{
+    //             """
+    //             cd $WORKSPACE/expresso
 
-                git config --global user.name "JQuay"
-                git config --global user.email "josephquayson877@gmail.com"
+    //             git config --global user.name "JQuay"
+    //             git config --global user.email "josephquayson877@gmail.com"
 
-                git add -A
-                git commit -m "commit from Jekins"
-                git push origin main
-                """
-            }
-        }
-      }
+    //             git add -A
+    //             git commit -m "commit from Jekins"
+    //             git push origin main
+    //             """
+    //         }
+    //     }
+    //   }
  
 
 
@@ -252,10 +260,10 @@ pipeline{
 
 
 
-        //  stage('Cleaning WSpace') {
-        //     steps {
-        //         cleanWs() // Clean workspace before build
-        //     }
-        // }
+         stage('Cleaning WSpace') {
+            steps {
+                cleanWs() // Clean workspace before build
+            }
+        }
     }
 }
