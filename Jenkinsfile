@@ -40,6 +40,8 @@ pipeline{
                 sh """
                 rm -rf expresso || true 
                 git clone https://github.com/JQuay/expresso.git
+                
+                cd expresso
 
         cat <<EOF > expresso/expresso-shop-product/dev-values.yaml
 
@@ -86,27 +88,7 @@ pipeline{
         }
 
           
-           stage('Push') {
-            // when {
-            //     expression { params.ENVIRONMENT == 'Dev' } // Only deploy if environment is not Dev
-            // }
-            steps {
-                script {
-                       """ 
-                       
-               cd expresso/
-               ls 
-
-
-                       
-                       
-                       """
-
-
- 
-                }
-            }
-        }
+           
     
 
 
@@ -126,6 +108,7 @@ pipeline{
                 sh """
                 rm -rf expresso || true 
                 git clone https://github.com/JQuay/expresso.git
+               
 
         cat <<EOF > expresso/expresso-shop-product/qa-values.yaml
 
