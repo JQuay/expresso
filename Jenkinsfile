@@ -38,7 +38,7 @@ pipeline{
             script{
                    
                 sh """
-                  pwd         
+                   ls -l $WORKSPACE/expresso-shop-product/     
                    """
                    
             }
