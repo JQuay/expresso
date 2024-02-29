@@ -84,10 +84,7 @@ pipeline{
                sh """
                 git config --global user.name "JQuay"
                 git config --global user.email "josephquayson877@gmail.com"
-
-                git add -A
-                git commit -m "commit from Jekins"
-                git push origin main
+                git branch
                """
                    
             }
