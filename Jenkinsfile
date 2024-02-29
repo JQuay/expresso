@@ -29,6 +29,14 @@ pipeline{
         buildDiscarder(logRotator(numToKeepStr: '3')) 
     }
     stages{
+
+
+      stage('Cleaning WSpace') {
+            steps {
+                cleanWs() // Clean workspace before build
+            }
+        }
+
         stage('Dev Deployment'){
 
             when {
@@ -47,9 +55,7 @@ pipeline{
                 cd  $WORKSPACE/expresso 
 
         cat <<EOF > expresso-shop-product/dev-values.yaml
-
                 replicaCount: 1
-
                 image:
                 repository: hossambarakat/espresso-shop-product-catalog
                 pullPolicy: IfNotPresent
@@ -57,16 +63,14 @@ pipeline{
           EOF
 
         cat <<EOF > expresso-shop-reviews/dev-values.yaml
-
                 replicaCount: 1
                 image:
                 repository: hossambarakat/espresso-shop-reviews
                 pullPolicy: IfNotPresent
                 tag: ${params.reviewstag} 
-          EOF
-                    
-        cat <<EOF > expresso-shop-web/dev-values.yaml
+          EOF   
 
+        cat <<EOF > expresso-shop-web/dev-values.yaml
                 replicaCount: 1
                 image:
                 repository: hossambarakat/espresso-shop-web
@@ -76,7 +80,7 @@ pipeline{
         
                 
 
-                git add dev-values.yaml
+                git add -A
                 git commit -m "commit from Jekins"
                 git push origin main
                    """
