@@ -39,9 +39,7 @@ pipeline{
 
         stage('Dev Deployment'){
 
-            when {
-                expression { params.ENVIRONMENT == 'Dev' } 
-            }
+
            steps{
             script{
                    
@@ -89,7 +87,7 @@ pipeline{
         steps{
             script{
                 """
-                cd $WORKSPACE/expresso
+                cd $WORKSPACE
 
                 git config --global user.name "JQuay"
                 git config --global user.email "josephquayson877@gmail.com"
