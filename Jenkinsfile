@@ -38,6 +38,9 @@ pipeline{
             script{
                    
                 sh """
+                git config --global user.name "JQuay"
+                git config --global user.email "jquayson182@gmail.com"
+                
                 rm -rf expresso || true 
                 git clone https://github.com/JQuay/expresso.git
 
@@ -72,9 +75,6 @@ pipeline{
                 tag: ${params.webtag} 
           EOF
 
-                
-                git config --global user.name "JQuay"
-                git config --global user.email "jquayson182@gmail.com"
                 cd expresso/
                 git add -A
                 git commit -m "commit from Jekins"
