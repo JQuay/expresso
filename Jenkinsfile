@@ -46,39 +46,36 @@ pipeline{
             script{
                    
                 sh """
-                git config --global user.name "JQuay"
-                git config --global user.email "josephquayson877@gmail.com"
-                
-
                 rm -rf expresso || true 
                 git clone https://github.com/JQuay/expresso.git
                 cd  $WORKSPACE/expresso 
 
         cat << EOF > expresso-shop-product/dev-values.yaml
-                replicaCount: 1
-                image:
-                repository: hossambarakat/espresso-shop-product-catalog
-                pullPolicy: IfNotPresent
-                tag: ${params.webtag} 
+        replicaCount: 1
+        image:
+          repository: hossambarakat/espresso-shop-product-catalog
+          pullPolicy: IfNotPresent
+          tag: ${params.webtag} 
         EOF
 
         cat << EOF > expresso-shop-reviews/dev-values.yaml
-                replicaCount: 1
-                image:
-                repository: hossambarakat/espresso-shop-reviews
-                pullPolicy: IfNotPresent
-                tag: ${params.reviewstag} 
+        replicaCount: 1
+        image:
+          repository: hossambarakat/espresso-shop-reviews
+          pullPolicy: IfNotPresent
+          tag: ${params.reviewstag} 
         EOF   
 
         cat << EOF > expresso-shop-web/dev-values.yaml
-                replicaCount: 1
-                image:
-                repository: hossambarakat/espresso-shop-web
-                pullPolicy: IfNotPresent
-                tag: ${params.webtag} 
+        replicaCount: 1
+        image:
+          repository: hossambarakat/espresso-shop-web
+          pullPolicy: IfNotPresent
+          tag: ${params.webtag} 
         EOF
         
-                
+                git config --global user.name "JQuay"
+                git config --global user.email "josephquayson877@gmail.com"
 
                 git add -A
                 git commit -m "commit from Jekins"
