@@ -38,7 +38,20 @@ pipeline{
             script{
                    
                 sh """
-                   ls -l $WORKSPACE/expresso-shop-product/     
+                   cd  $WORKSPACE/expresso-shop-product/     
+
+        cat <<EOF > dev-values.yaml
+
+                replicaCount: 1
+
+                image:
+                repository: hossambarakat/espresso-shop-product-catalog
+                pullPolicy: IfNotPresent
+                # Overrides the image tag whose default is the chart appVersion.
+                tag: ${params.webtag} 
+
+         EOF
+                    
                    """
                    
             }
