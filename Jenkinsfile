@@ -53,7 +53,6 @@ pipeline{
                 image:
                 repository: hossambarakat/espresso-shop-product-catalog
                 pullPolicy: IfNotPresent
-                # Overrides the image tag whose default is the chart appVersion.
                 tag: ${params.webtag} 
           EOF
 
@@ -63,7 +62,6 @@ pipeline{
                 image:
                 repository: hossambarakat/espresso-shop-reviews
                 pullPolicy: IfNotPresent
-                # Overrides the image tag whose default is the chart appVersion.
                 tag: ${params.reviewstag} 
           EOF
                     
@@ -73,7 +71,6 @@ pipeline{
                 image:
                 repository: hossambarakat/espresso-shop-web
                 pullPolicy: IfNotPresent
-                # Overrides the image tag whose default is the chart appVersion.
                 tag: ${params.webtag} 
           EOF
         
@@ -208,7 +205,6 @@ pipeline{
                 image:
                 repository: hossambarakat/espresso-shop-product-catalog
                 pullPolicy: IfNotPresent
-                # Overrides the image tag whose default is the chart appVersion.
                 tag: ${params.webtag} 
           EOF
 
@@ -218,7 +214,6 @@ pipeline{
                 image:
                 repository: hossambarakat/espresso-shop-reviews
                 pullPolicy: IfNotPresent
-                # Overrides the image tag whose default is the chart appVersion.
                 tag: ${params.reviewstag} 
           EOF
                     
@@ -228,7 +223,6 @@ pipeline{
                 image:
                 repository: hossambarakat/espresso-shop-web
                 pullPolicy: IfNotPresent
-                # Overrides the image tag whose default is the chart appVersion.
                 tag: ${params.webtag} 
           EOF
                    """
