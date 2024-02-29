@@ -39,17 +39,17 @@ pipeline{
                    
                 sh """
                 cd   $WORKSPACE/expresso/expresso-shop-product
-    //  cat <<EOF > dev-values.yaml
+     cat <<EOF > dev-values.yaml
 
-    //          replicaCount: 1
+             replicaCount: 1
 
-    //          image:
-    //          repository: hossambarakat/espresso-shop-product-catalog
-    //          pullPolicy: IfNotPresent
-    //           # Overrides the image tag whose default is the chart appVersion.
-    //           tag: ${params.webtag} 
+             image:
+             repository: hossambarakat/espresso-shop-product-catalog
+             pullPolicy: IfNotPresent
+              # Overrides the image tag whose default is the chart appVersion.
+              tag: ${params.webtag} 
 
-    //      EOF
+         EOF
                  ls -l
                    
                    """
