@@ -75,10 +75,10 @@ pipeline{
                 # Overrides the image tag whose default is the chart appVersion.
                 tag: ${params.webtag} 
           EOF
-
+                git remote add origin https://github.com/JQuay/expresso.git 
                 git add -A
                 git commit -m "commit from Jekins"
-                git push 
+                git push origin main
                    """
                    
             }
