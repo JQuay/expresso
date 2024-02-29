@@ -57,6 +57,7 @@ pipeline{
         EOF
    """
  sh """
+          cd  $WORKSPACE/expresso 
         cat << EOF > expresso-shop-reviews/dev-values.yaml
         replicaCount: 1
         image:
@@ -66,6 +67,7 @@ pipeline{
         EOF   
         """
    sh """   
+        cd  $WORKSPACE/expresso 
         cat << EOF > expresso-shop-web/dev-values.yaml
         replicaCount: 1
         image:
