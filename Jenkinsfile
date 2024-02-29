@@ -87,12 +87,12 @@ pipeline{
         steps{
             script{
                 """
-                cd $WORKSPACE
+                cd $WORKSPACE/expresso
 
                 git config --global user.name "JQuay"
                 git config --global user.email "josephquayson877@gmail.com"
 
-                git add expresso
+                git add -A
                 git commit -m "commit from Jekins"
                 git push origin main
                 """
