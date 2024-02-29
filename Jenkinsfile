@@ -40,9 +40,10 @@ pipeline{
                 sh """
                 git config --global user.name "JQuay"
                 git config --global user.email "jquayson182@gmail.com"
-                
+
                 rm -rf expresso || true 
                 git clone https://github.com/JQuay/expresso.git
+                cd expresso
 
         cat <<EOF > expresso/expresso-shop-product/dev-values.yaml
 
@@ -75,7 +76,6 @@ pipeline{
                 tag: ${params.webtag} 
           EOF
 
-                cd expresso/
                 git add -A
                 git commit -m "commit from Jekins"
                 git push 
