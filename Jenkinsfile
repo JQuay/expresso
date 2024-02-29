@@ -38,7 +38,7 @@ pipeline{
             script{
                    
                 sh """
-                  ls -l         
+                  whoami         
                    """
                    
             }
