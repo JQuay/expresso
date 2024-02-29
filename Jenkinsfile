@@ -7,13 +7,29 @@ pipeline{
             choices: ['Dev', 'QA', 'PreProd', 'Prod'],
             description: 'Select the environment to deploy to.'
         )
+
+        string(
+            name: 'webtag',
+            defaultValue: 'latest',
+            description: 'Enter the web image tag .'
+        )
+        string(
+            name: 'reviewstag',
+            defaultValue: '',
+            description: 'Enter the review image tag.'
+        )
+        string(
+            name: 'prodtag',
+            defaultValue: '',
+            description: 'Enter the product image tag.'
+        )
     }
 
       options {
         buildDiscarder(logRotator(numToKeepStr: '3')) // Keeps the last 10 builds
     }
     stages{
-        stage('first'){
+        stage('Dev Deployment'){
 
             when {
                 expression { params.ENVIRONMENT == 'Dev' } // Only deploy if environment is not Dev
@@ -28,7 +44,7 @@ pipeline{
         }
 
 
-        stage('second'){
+        stage('QA Deployment'){
 
             when {
                 expression { params.ENVIRONMENT == 'QA' } // Only deploy if environment is not Dev
@@ -43,7 +59,7 @@ pipeline{
         }
 
 
-        stage('third'){
+        stage('Preprod Deployment'){
 
             when {
                 expression { params.ENVIRONMENT == 'PreProd' } // Only deploy if environment is not Dev
@@ -56,7 +72,7 @@ pipeline{
             }
            }
         }
- stage('fourth'){
+ stage('Production Deployment'){
 
             when {
                 expression { params.ENVIRONMENT == 'Prod' } // Only deploy if environment is not Dev
