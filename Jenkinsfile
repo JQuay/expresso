@@ -85,6 +85,8 @@ pipeline{
                 git config --global user.name "JQuay"
                 git config --global user.email "josephquayson877@gmail.com"
                 git branch
+                git checkout main
+
                """
                    
             }
