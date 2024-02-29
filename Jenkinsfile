@@ -31,9 +31,14 @@ pipeline{
     stages{
 
 
-      stage('Cleaning WSpace') {
+      stage('Cloning') {
             steps {
-                cleanWs() // Clean workspace before build
+              script{
+                """
+                rm -rf expresso || true 
+                git clone https://github.com/JQuay/expresso.git
+                """
+              }
             }
         }
 
@@ -41,13 +46,12 @@ pipeline{
 
 
            steps{
+
+
+             dir(expresso){
             script{
                    
                 sh """
-                rm -rf expresso || true 
-                git clone https://github.com/JQuay/expresso.git
-                cd  $WORKSPACE/expresso 
-
         cat << EOF > expresso-shop-product/dev-values.yaml
         replicaCount: 1
         image:
@@ -55,7 +59,7 @@ pipeline{
           pullPolicy: IfNotPresent
           tag: ${params.webtag} 
         EOF
-            cd  $WORKSPACE/expresso 
+   
 
         cat << EOF > expresso-shop-reviews/dev-values.yaml
         replicaCount: 1
@@ -64,7 +68,7 @@ pipeline{
           pullPolicy: IfNotPresent
           tag: ${params.reviewstag} 
         EOF   
-             cd  $WORKSPACE/expresso 
+      
         cat << EOF > expresso-shop-web/dev-values.yaml
         replicaCount: 1
         image:
@@ -77,6 +81,7 @@ pipeline{
                    """
                    
             }
+           }
            }
         }
 
