@@ -39,12 +39,12 @@ pipeline{
                    
                 sh """
                 git config --global user.name "JQuay"
-                git config --global user.email "jquayson182@gmail.com"
+                git config --global user.email "josephquayson877@gmail.com"
                 
 
                 rm -rf expresso || true 
                 git clone https://github.com/JQuay/expresso.git
-                git remote add origin https://github.com/JQuay/expresso.git 
+                git remote add origin https://github.com/JQuay/expresso.git || true
                 cd expresso
 
         cat <<EOF > expresso-shop-product/dev-values.yaml
