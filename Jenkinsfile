@@ -48,7 +48,7 @@ pipeline{
            steps{
 
 
-             dir('expresso'){
+             dir("$WORKSPACE/expresso"){
             script{
                    
                 sh """
