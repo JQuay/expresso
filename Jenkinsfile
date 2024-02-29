@@ -38,10 +38,7 @@ pipeline{
             script{
                    
                 sh """
-                  ls -l   $WORKSPACE/expresso/expresso-shop-product/
-
-                
-                   
+                  ls -l         
                    """
                    
             }
@@ -95,10 +92,10 @@ pipeline{
 
 
 
-         stage('Cleaning WSpace') {
-            steps {
-                cleanWs() // Clean workspace before build
-            }
-        }
+        //  stage('Cleaning WSpace') {
+        //     steps {
+        //         cleanWs() // Clean workspace before build
+        //     }
+        // }
     }
 }
