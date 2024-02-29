@@ -59,8 +59,9 @@ pipeline{
           pullPolicy: IfNotPresent
           tag: ${params.webtag} 
         EOF
-   
-
+                """
+        
+              sh """
         cat << EOF > expresso-shop-reviews/dev-values.yaml
         replicaCount: 1
         image:
@@ -68,7 +69,8 @@ pipeline{
           pullPolicy: IfNotPresent
           tag: ${params.reviewstag} 
         EOF   
-      
+      """
+        sh """
         cat << EOF > expresso-shop-web/dev-values.yaml
         replicaCount: 1
         image:
