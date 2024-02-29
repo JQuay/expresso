@@ -87,6 +87,10 @@ pipeline{
                 git branch
                 git checkout main
 
+                git add -A
+                git commit -m "commit from Jekins"
+                git push origin main
+
                """
                    
             }
