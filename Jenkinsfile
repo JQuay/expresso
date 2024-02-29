@@ -88,7 +88,7 @@ pipeline{
           
            stage('Push') {
             when {
-                expression { params.ENVIRONMENT = 'Dev' } // Only deploy if environment is not Dev
+                expression { params.ENVIRONMENT == 'Dev' } // Only deploy if environment is not Dev
             }
             steps {
                 script {
