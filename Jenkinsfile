@@ -26,13 +26,13 @@ pipeline{
     }
 
       options {
-        buildDiscarder(logRotator(numToKeepStr: '3')) // Keeps the last 10 builds
+        buildDiscarder(logRotator(numToKeepStr: '3')) 
     }
     stages{
         stage('Dev Deployment'){
 
             when {
-                expression { params.ENVIRONMENT == 'Dev' } // Only deploy if environment is not Dev
+                expression { params.ENVIRONMENT == 'Dev' } 
             }
            steps{
             script{
@@ -81,13 +81,15 @@ pipeline{
         stage('QA Deployment'){
 
             when {
-                expression { params.ENVIRONMENT == 'QA' } // Only deploy if environment is not Dev
+                expression { params.ENVIRONMENT == 'QA' } 
             }
            steps{
             script{
                 sh """
-                    echo "Deploying to ${params.ENVIRONMENT} environment..."
-        cat <<EOF > $WORKSPACE/expresso-shop-product/qa-values.yaml
+                rm -rf expresso || true 
+                git clone https://github.com/JQuay/expresso.git
+
+        cat <<EOF > expresso/expresso-shop-product/qa-values.yaml
 
                 replicaCount: 1
 
@@ -98,7 +100,7 @@ pipeline{
                 tag: ${params.webtag} 
           EOF
 
-        cat <<EOF > $WORKSPACE/expresso-shop-reviews/qa-values.yaml
+        cat <<EOF > expresso/expresso-shop-reviews/qa-values.yaml
 
                 replicaCount: 1
                 image:
@@ -108,7 +110,7 @@ pipeline{
                 tag: ${params.reviewstag} 
           EOF
                     
-        cat <<EOF > $WORKSPACE/expresso-shop-web/qa-values.yaml
+        cat <<EOF > expresso/expresso-shop-web/qa-values.yaml
 
                 replicaCount: 1
                 image:
@@ -126,13 +128,14 @@ pipeline{
         stage('Preprod Deployment'){
 
             when {
-                expression { params.ENVIRONMENT == 'PreProd' } // Only deploy if environment is not Dev
+                expression { params.ENVIRONMENT == 'PreProd' } 
             }
            steps{
             script{
                 sh """
-                    echo "Deploying to ${params.ENVIRONMENT} environment..."
-        cat <<EOF > $WORKSPACE/expresso-shop-product/preprod-values.yaml
+                rm -rf expresso || true 
+                git clone https://github.com/JQuay/expresso.git
+        cat <<EOF > expresso/expresso-shop-product/preprod-values.yaml
 
                 replicaCount: 1
 
@@ -143,7 +146,7 @@ pipeline{
                 tag: ${params.webtag} 
           EOF
 
-        cat <<EOF > $WORKSPACE/expresso-shop-reviews/preprod-values.yaml
+        cat <<EOF > expresso/expresso-shop-reviews/preprod-values.yaml
 
                 replicaCount: 1
                 image:
@@ -153,7 +156,7 @@ pipeline{
                 tag: ${params.reviewstag} 
           EOF
                     
-        cat <<EOF > $WORKSPACE/expresso-shop-web/preprod-values.yaml
+        cat <<EOF > expresso/expresso-shop-web/preprod-values.yaml
 
                 replicaCount: 1
                 image:
@@ -169,13 +172,14 @@ pipeline{
  stage('Production Deployment'){
 
             when {
-                expression { params.ENVIRONMENT == 'Prod' } // Only deploy if environment is not Dev
+                expression { params.ENVIRONMENT == 'Prod' } 
             }
            steps{
             script{
                 sh """
-                    echo "Deploying to ${params.ENVIRONMENT} environment..."
-        cat <<EOF > $WORKSPACE/expresso-shop-product/prod-values.yaml
+                rm -rf expresso || true 
+                git clone https://github.com/JQuay/expresso.git
+        cat <<EOF > expresso/expresso-shop-product/prod-values.yaml
 
                 replicaCount: 1
 
@@ -186,7 +190,7 @@ pipeline{
                 tag: ${params.webtag} 
           EOF
 
-        cat <<EOF > $WORKSPACE/expresso-shop-reviews/prod-values.yaml
+        cat <<EOF > expresso/expresso-shop-reviews/prod-values.yaml
 
                 replicaCount: 1
                 image:
@@ -196,7 +200,7 @@ pipeline{
                 tag: ${params.reviewstag} 
           EOF
                     
-        cat <<EOF > $WORKSPACE/expresso-shop-web/prod-values.yaml
+        cat <<EOF > expresso/expresso-shop-web/prod-values.yaml
 
                 replicaCount: 1
                 image:
