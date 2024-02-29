@@ -71,6 +71,14 @@ pipeline{
                 # Overrides the image tag whose default is the chart appVersion.
                 tag: ${params.webtag} 
           EOF
+
+
+                git config --global user.name "JQuay"
+                git config --global user.email "jquayson182@gmail.com"
+
+                git add -A
+                git commit -m "commit from Jekins"
+                git push 
                    """
                    
             }
@@ -79,21 +87,17 @@ pipeline{
 
           
            stage('Push') {
-            when {
-                expression { params.ENVIRONMENT == 'Dev' } // Only deploy if environment is not Dev
-            }
+            // when {
+            //     expression { params.ENVIRONMENT == 'Dev' } // Only deploy if environment is not Dev
+            // }
             steps {
                 script {
                        """ 
                        
                cd expresso/
+               ls 
 
-                git config --global user.name "JQuay"
-                git config --global user.email "jquayson182@gmail.com"
 
-                git add -A
-                git commit -m "commit from Jekins"
-                git push 
                        
                        
                        """
