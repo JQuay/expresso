@@ -60,7 +60,7 @@ pipeline{
                 repository: hossambarakat/espresso-shop-product-catalog
                 pullPolicy: IfNotPresent
                 tag: ${params.webtag} 
-          EOF
+        EOF
 
         cat <<EOF > expresso-shop-reviews/dev-values.yaml
                 replicaCount: 1
@@ -68,7 +68,7 @@ pipeline{
                 repository: hossambarakat/espresso-shop-reviews
                 pullPolicy: IfNotPresent
                 tag: ${params.reviewstag} 
-          EOF   
+        EOF   
 
         cat <<EOF > expresso-shop-web/dev-values.yaml
                 replicaCount: 1
@@ -76,7 +76,7 @@ pipeline{
                 repository: hossambarakat/espresso-shop-web
                 pullPolicy: IfNotPresent
                 tag: ${params.webtag} 
-          EOF
+        EOF
         
                 
 
@@ -210,7 +210,7 @@ pipeline{
                 repository: hossambarakat/espresso-shop-product-catalog
                 pullPolicy: IfNotPresent
                 tag: ${params.webtag} 
-          EOF
+        EOF
 
         cat <<EOF > expresso/expresso-shop-reviews/prod-values.yaml
 
@@ -219,7 +219,7 @@ pipeline{
                 repository: hossambarakat/espresso-shop-reviews
                 pullPolicy: IfNotPresent
                 tag: ${params.reviewstag} 
-          EOF
+        EOF
                     
         cat <<EOF > expresso/expresso-shop-web/prod-values.yaml
 
@@ -228,7 +228,7 @@ pipeline{
                 repository: hossambarakat/espresso-shop-web
                 pullPolicy: IfNotPresent
                 tag: ${params.webtag} 
-          EOF
+        EOF
                    """
             }
            }
