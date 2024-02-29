@@ -45,7 +45,7 @@ pipeline{
            steps{
             script{
                    
-                sh '''
+                sh """
                 rm -rf expresso || true 
                 git clone https://github.com/JQuay/expresso.git
                 cd  $WORKSPACE/expresso 
@@ -80,7 +80,7 @@ pipeline{
                 git add -A
                 git commit -m "commit from Jekins"
                 git push origin main
-                   '''
+                   """
                    
             }
            }
