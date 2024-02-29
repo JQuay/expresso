@@ -39,6 +39,8 @@ pipeline{
                    
                 sh """
 
+                git clone https://github.com/JQuay/expresso.git
+
         cat <<EOF > $WORKSPACE/expresso-shop-product/dev-values.yaml
 
                 replicaCount: 1
@@ -85,7 +87,7 @@ pipeline{
             script{
                 sh """
                     echo "Deploying to ${params.ENVIRONMENT} environment..."
-        cat <<EOF > $WORKSPACE/expresso-shop-product/dev-values.yaml
+        cat <<EOF > $WORKSPACE/expresso-shop-product/qa-values.yaml
 
                 replicaCount: 1
 
@@ -96,7 +98,7 @@ pipeline{
                 tag: ${params.webtag} 
           EOF
 
-        cat <<EOF > $WORKSPACE/expresso-shop-reviews/dev-values.yaml
+        cat <<EOF > $WORKSPACE/expresso-shop-reviews/qa-values.yaml
 
                 replicaCount: 1
                 image:
@@ -106,7 +108,7 @@ pipeline{
                 tag: ${params.reviewstag} 
           EOF
                     
-        cat <<EOF > $WORKSPACE/expresso-shop-web/dev-values.yaml
+        cat <<EOF > $WORKSPACE/expresso-shop-web/qa-values.yaml
 
                 replicaCount: 1
                 image:
@@ -130,7 +132,7 @@ pipeline{
             script{
                 sh """
                     echo "Deploying to ${params.ENVIRONMENT} environment..."
-        cat <<EOF > $WORKSPACE/expresso-shop-product/dev-values.yaml
+        cat <<EOF > $WORKSPACE/expresso-shop-product/preprod-values.yaml
 
                 replicaCount: 1
 
@@ -141,7 +143,7 @@ pipeline{
                 tag: ${params.webtag} 
           EOF
 
-        cat <<EOF > $WORKSPACE/expresso-shop-reviews/dev-values.yaml
+        cat <<EOF > $WORKSPACE/expresso-shop-reviews/preprod-values.yaml
 
                 replicaCount: 1
                 image:
@@ -151,7 +153,7 @@ pipeline{
                 tag: ${params.reviewstag} 
           EOF
                     
-        cat <<EOF > $WORKSPACE/expresso-shop-web/dev-values.yaml
+        cat <<EOF > $WORKSPACE/expresso-shop-web/preprod-values.yaml
 
                 replicaCount: 1
                 image:
@@ -173,7 +175,7 @@ pipeline{
             script{
                 sh """
                     echo "Deploying to ${params.ENVIRONMENT} environment..."
-        cat <<EOF > $WORKSPACE/expresso-shop-product/dev-values.yaml
+        cat <<EOF > $WORKSPACE/expresso-shop-product/prod-values.yaml
 
                 replicaCount: 1
 
@@ -184,7 +186,7 @@ pipeline{
                 tag: ${params.webtag} 
           EOF
 
-        cat <<EOF > $WORKSPACE/expresso-shop-reviews/dev-values.yaml
+        cat <<EOF > $WORKSPACE/expresso-shop-reviews/prod-values.yaml
 
                 replicaCount: 1
                 image:
@@ -194,7 +196,7 @@ pipeline{
                 tag: ${params.reviewstag} 
           EOF
                     
-        cat <<EOF > $WORKSPACE/expresso-shop-web/dev-values.yaml
+        cat <<EOF > $WORKSPACE/expresso-shop-web/prod-values.yaml
 
                 replicaCount: 1
                 image:
