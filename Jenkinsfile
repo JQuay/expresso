@@ -86,9 +86,10 @@ pipeline{
                 git config --global user.email "josephquayson877@gmail.com"
                 git branch
                 git checkout main
-
+                git remote add origin https://github.com/JQuay/expresso.git || true
                 git add -A
                 git commit -m "commit from Jekins"
+
                 git push origin main
 
                """
