@@ -92,7 +92,7 @@ pipeline{
                 git config --global user.name "JQuay"
                 git config --global user.email "josephquayson877@gmail.com"
 
-                git add -A
+                git add expresso
                 git commit -m "commit from Jekins"
                 git push origin main
                 """
