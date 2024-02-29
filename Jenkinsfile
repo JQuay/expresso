@@ -45,7 +45,7 @@ pipeline{
                 git clone https://github.com/JQuay/expresso.git
                 cd expresso
 
-        cat <<EOF > expresso/expresso-shop-product/dev-values.yaml
+        cat <<EOF > expresso-shop-product/dev-values.yaml
 
                 replicaCount: 1
 
@@ -56,7 +56,7 @@ pipeline{
                 tag: ${params.webtag} 
           EOF
 
-        cat <<EOF > expresso/expresso-shop-reviews/dev-values.yaml
+        cat <<EOF > expresso-shop-reviews/dev-values.yaml
 
                 replicaCount: 1
                 image:
@@ -66,7 +66,7 @@ pipeline{
                 tag: ${params.reviewstag} 
           EOF
                     
-        cat <<EOF > expresso/expresso-shop-web/dev-values.yaml
+        cat <<EOF > expresso-shop-web/dev-values.yaml
 
                 replicaCount: 1
                 image:
