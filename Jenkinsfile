@@ -64,7 +64,7 @@ pipeline{
           pullPolicy: IfNotPresent
           tag: ${params.reviewstag} 
         EOF   
-        """
+  """
    sh """   
         cat << EOF > $WORKSPACE/expresso/expresso-shop-web/dev-values.yaml
         replicaCount: 1
@@ -73,9 +73,8 @@ pipeline{
           pullPolicy: IfNotPresent
           tag: ${params.webtag} 
         EOF
-     
-        """
-      sh """
+    """
+  sh """
                 cd $WORKSPACE/expresso
 
                 git config --global user.name "JQuay"
