@@ -45,7 +45,7 @@ pipeline{
                    
                 sh """
                 rm -rf expresso || true 
-                git clone https://github.com/JQuay/expresso.git
+                git clone git@github.com:JQuay/expresso.git
                 cd  $WORKSPACE/expresso 
 
         cat << EOF > expresso-shop-product/dev-values.yaml
@@ -84,8 +84,8 @@ pipeline{
                 git config --global user.email "josephquayson877@gmail.com"
 
                 git add -A
-                git commit -m "commit from Jekins"
-                git push origin main
+                git commit -m "commit from Jenkins"
+                git push 
                 """
                    
             }
