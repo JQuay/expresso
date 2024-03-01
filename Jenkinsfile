@@ -103,44 +103,51 @@ pipeline{
             when {
                 expression { params.ENVIRONMENT == 'QA' } 
             }
-           steps{
+                     steps{
             script{
+                   
                 sh """
                 rm -rf expresso || true 
-                git clone https://github.com/JQuay/expresso.git
-               
-
-        cat <<EOF > expresso/expresso-shop-product/qa-values.yaml
-
-                replicaCount: 1
-
-                image:
-                repository: hossambarakat/espresso-shop-product-catalog
-                pullPolicy: IfNotPresent
-                # Overrides the image tag whose default is the chart appVersion.
-                tag: ${params.webtag} 
-          EOF
-
-        cat <<EOF > expresso/expresso-shop-reviews/qa-values.yaml
-
-                replicaCount: 1
-                image:
-                repository: hossambarakat/espresso-shop-reviews
-                pullPolicy: IfNotPresent
-                # Overrides the image tag whose default is the chart appVersion.
-                tag: ${params.reviewstag} 
-          EOF
-                    
-        cat <<EOF > expresso/expresso-shop-web/qa-values.yaml
-
-                replicaCount: 1
-                image:
-                repository: hossambarakat/espresso-shop-web
-                pullPolicy: IfNotPresent
-                # Overrides the image tag whose default is the chart appVersion.
-                tag: ${params.webtag} 
-          EOF
+                git clone git@github.com:JQuay/expresso.git
                    """
+  sh """
+        cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-product/qa-values.yaml
+        replicaCount: 1
+        image:
+          repository: hossambarakat/espresso-shop-product-catalog
+          pullPolicy: IfNotPresent
+          tag: '${params.webtag}'
+        
+   """
+ sh """
+        cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-reviews/qa-values.yaml
+        replicaCount: 1
+        image:
+          repository: hossambarakat/espresso-shop-reviews
+          pullPolicy: IfNotPresent
+          tag:   '${params.reviewstag}'
+        
+  """
+   sh """   
+        cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-web/qa-values.yaml
+        replicaCount: 1
+        image:
+          repository: hossambarakat/espresso-shop-web
+          pullPolicy: IfNotPresent
+          tag: '${params.webtag}' 
+        
+    """
+  sh """
+                cd $WORKSPACE/expresso
+
+                git config --global user.name "JQuay"
+                git config --global user.email "josephquayson877@gmail.com"
+
+                git add -A
+                git commit -m "commit from Jenkins"
+                git push origin main
+         """
+                   
             }
            }
         }
@@ -151,42 +158,51 @@ pipeline{
             when {
                 expression { params.ENVIRONMENT == 'PreProd' } 
             }
-           steps{
+                  steps{
             script{
+                   
                 sh """
                 rm -rf expresso || true 
-                git clone https://github.com/JQuay/expresso.git
-        cat <<EOF > expresso/expresso-shop-product/preprod-values.yaml
-
-                replicaCount: 1
-
-                image:
-                repository: hossambarakat/espresso-shop-product-catalog
-                pullPolicy: IfNotPresent
-                # Overrides the image tag whose default is the chart appVersion.
-                tag: ${params.webtag} 
-          EOF
-
-        cat <<EOF > expresso/expresso-shop-reviews/preprod-values.yaml
-
-                replicaCount: 1
-                image:
-                repository: hossambarakat/espresso-shop-reviews
-                pullPolicy: IfNotPresent
-                # Overrides the image tag whose default is the chart appVersion.
-                tag: ${params.reviewstag} 
-          EOF
-                    
-        cat <<EOF > expresso/expresso-shop-web/preprod-values.yaml
-
-                replicaCount: 1
-                image:
-                repository: hossambarakat/espresso-shop-web
-                pullPolicy: IfNotPresent
-                # Overrides the image tag whose default is the chart appVersion.
-                tag: ${params.webtag} 
-          EOF
+                git clone git@github.com:JQuay/expresso.git
                    """
+  sh """
+        cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-product/preprod-values.yaml
+        replicaCount: 1
+        image:
+          repository: hossambarakat/espresso-shop-product-catalog
+          pullPolicy: IfNotPresent
+          tag: '${params.webtag}'
+        
+   """
+ sh """
+        cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-reviews/prepro-values.yaml
+        replicaCount: 1
+        image:
+          repository: hossambarakat/espresso-shop-reviews
+          pullPolicy: IfNotPresent
+          tag:   '${params.reviewstag}'
+        
+  """
+   sh """   
+        cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-web/preprod-values.yaml
+        replicaCount: 1
+        image:
+          repository: hossambarakat/espresso-shop-web
+          pullPolicy: IfNotPresent
+          tag: '${params.webtag}' 
+        
+    """
+  sh """
+                cd $WORKSPACE/expresso
+
+                git config --global user.name "JQuay"
+                git config --global user.email "josephquayson877@gmail.com"
+
+                git add -A
+                git commit -m "commit from Jenkins"
+                git push origin main
+         """
+                   
             }
            }
         }
@@ -195,41 +211,54 @@ pipeline{
             when {
                 expression { params.ENVIRONMENT == 'Prod' } 
             }
-           steps{
+                       steps{
             script{
+                   
                 sh """
                 rm -rf expresso || true 
-                git clone https://github.com/JQuay/expresso.git
-        cat <<EOF > expresso/expresso-shop-product/prod-values.yaml
-
-                replicaCount: 1
-
-                image:
-                repository: hossambarakat/espresso-shop-product-catalog
-                pullPolicy: IfNotPresent
-                tag: ${params.webtag} 
-        EOF
-
-        cat <<EOF > expresso/expresso-shop-reviews/prod-values.yaml
-
-                replicaCount: 1
-                image:
-                repository: hossambarakat/espresso-shop-reviews
-                pullPolicy: IfNotPresent
-                tag: ${params.reviewstag} 
-        EOF
-                    
-        cat <<EOF > expresso/expresso-shop-web/prod-values.yaml
-
-                replicaCount: 1
-                image:
-                repository: hossambarakat/espresso-shop-web
-                pullPolicy: IfNotPresent
-                tag: ${params.webtag} 
-        EOF
+                git clone git@github.com:JQuay/expresso.git
                    """
+  sh """
+        cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-product/prod-values.yaml
+        replicaCount: 1
+        image:
+          repository: hossambarakat/espresso-shop-product-catalog
+          pullPolicy: IfNotPresent
+          tag: '${params.webtag}'
+        
+   """
+ sh """
+        cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-reviews/prod-values.yaml
+        replicaCount: 1
+        image:
+          repository: hossambarakat/espresso-shop-reviews
+          pullPolicy: IfNotPresent
+          tag:   '${params.reviewstag}'
+        
+  """
+   sh """   
+        cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-web/prod-values.yaml
+        replicaCount: 1
+        image:
+          repository: hossambarakat/espresso-shop-web
+          pullPolicy: IfNotPresent
+          tag: '${params.webtag}' 
+        
+    """
+  sh """
+                cd $WORKSPACE/expresso
+
+                git config --global user.name "JQuay"
+                git config --global user.email "josephquayson877@gmail.com"
+
+                git add -A
+                git commit -m "commit from Jenkins"
+                git push origin main
+         """
+                   
             }
            }
+         
         }
 
 
