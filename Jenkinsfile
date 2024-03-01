@@ -53,7 +53,7 @@ pipeline{
         image:
           repository: hossambarakat/espresso-shop-product-catalog
           pullPolicy: IfNotPresent
-          tag: \\'${params.webtag}'
+          tag: '${params.webtag}'
         "EOF"
    """
  sh """
