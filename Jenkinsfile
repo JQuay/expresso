@@ -23,6 +23,13 @@ pipeline{
             defaultValue: 'latest',
             description: 'Enter the product image tag.'
         )
+        string(
+            name: 'replicaCount',
+            defaultValue: '1' ,
+            description: 'Enter the replica count.'
+        )
+
+        
     }
 
       options {
@@ -37,7 +44,11 @@ pipeline{
             }
         }
 
-        stage('Dev Deployment'){
+      stage('Dev Deployment'){
+    
+         when {
+                expression { params.ENVIRONMENT == 'Dev' } 
+            }
 
 
            steps{
@@ -49,7 +60,7 @@ pipeline{
                    """
   sh """
         cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-product/dev-values.yaml
-        replicaCount: 1
+        replicaCount: '${params.replicaCount}'
         image:
           repository: hossambarakat/espresso-shop-product-catalog
           pullPolicy: IfNotPresent
@@ -58,7 +69,7 @@ pipeline{
    """
  sh """
         cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-reviews/dev-values.yaml
-        replicaCount: 1
+        replicaCount: '${params.replicaCount}'
         image:
           repository: hossambarakat/espresso-shop-reviews
           pullPolicy: IfNotPresent
@@ -67,11 +78,12 @@ pipeline{
   """
    sh """   
         cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-web/dev-values.yaml
-        replicaCount: 1
+        replicaCount: '${params.replicaCount}'
         image:
           repository: hossambarakat/espresso-shop-web
           pullPolicy: IfNotPresent
           tag: '${params.webtag}' 
+
         
     """
   sh """
@@ -112,7 +124,7 @@ pipeline{
                    """
   sh """
         cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-product/qa-values.yaml
-        replicaCount: 1
+        replicaCount: '${params.replicaCount}'
         image:
           repository: hossambarakat/espresso-shop-product-catalog
           pullPolicy: IfNotPresent
@@ -121,7 +133,7 @@ pipeline{
    """
  sh """
         cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-reviews/qa-values.yaml
-        replicaCount: 1
+        replicaCount: '${params.replicaCount}'
         image:
           repository: hossambarakat/espresso-shop-reviews
           pullPolicy: IfNotPresent
@@ -130,7 +142,7 @@ pipeline{
   """
    sh """   
         cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-web/qa-values.yaml
-        replicaCount: 1
+        replicaCount: '${params.replicaCount}'
         image:
           repository: hossambarakat/espresso-shop-web
           pullPolicy: IfNotPresent
@@ -167,16 +179,16 @@ pipeline{
                    """
   sh """
         cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-product/preprod-values.yaml
-        replicaCount: 1
+        replicaCount: '${params.replicaCount}'
         image:
           repository: hossambarakat/espresso-shop-product-catalog
           pullPolicy: IfNotPresent
           tag: '${params.webtag}'
         
-   """
+      """
  sh """
         cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-reviews/prepro-values.yaml
-        replicaCount: 1
+        replicaCount: '${params.replicaCount}'
         image:
           repository: hossambarakat/espresso-shop-reviews
           pullPolicy: IfNotPresent
@@ -185,7 +197,7 @@ pipeline{
   """
    sh """   
         cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-web/preprod-values.yaml
-        replicaCount: 1
+        replicaCount: '${params.replicaCount}'
         image:
           repository: hossambarakat/espresso-shop-web
           pullPolicy: IfNotPresent
@@ -220,7 +232,7 @@ pipeline{
                    """
   sh """
         cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-product/prod-values.yaml
-        replicaCount: 1
+        replicaCount: '${params.replicaCount}'
         image:
           repository: hossambarakat/espresso-shop-product-catalog
           pullPolicy: IfNotPresent
@@ -229,16 +241,16 @@ pipeline{
    """
  sh """
         cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-reviews/prod-values.yaml
-        replicaCount: 1
+        replicaCount: '${params.replicaCount}'
         image:
           repository: hossambarakat/espresso-shop-reviews
           pullPolicy: IfNotPresent
-          tag:   '${params.reviewstag}'
+          tag: '${params.reviewstag}'
         
   """
    sh """   
         cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-web/prod-values.yaml
-        replicaCount: 1
+        replicaCount: '${params.replicaCount}'
         image:
           repository: hossambarakat/espresso-shop-web
           pullPolicy: IfNotPresent
@@ -262,13 +274,5 @@ pipeline{
         }
 
 
-
-
-
-        //  stage('Cleaning WSpace') {
-        //     steps {
-        //         cleanWs() // Clean workspace before build
-        //     }
-        // }
     }
 }
