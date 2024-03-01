@@ -48,7 +48,7 @@ pipeline{
                 git clone git@github.com:JQuay/expresso.git
                    """
   sh """
-        cat << "EOF" > $WORKSPACE/expresso/expresso-shop-product/dev-values.yaml
+        cat << 'EOF' >> $WORKSPACE/expresso/expresso-shop-product/dev-values.yaml
         replicaCount: 1
         image:
           repository: hossambarakat/espresso-shop-product-catalog
@@ -57,7 +57,7 @@ pipeline{
         EOF
    """
  sh """
-        cat << "EOF" > $WORKSPACE/expresso/expresso-shop-reviews/dev-values.yaml
+        cat << 'EOF' >> $WORKSPACE/expresso/expresso-shop-reviews/dev-values.yaml
         replicaCount: 1
         image:
           repository: hossambarakat/espresso-shop-reviews
@@ -66,7 +66,7 @@ pipeline{
         EOF
   """
    sh """   
-        cat << "EOF" > $WORKSPACE/expresso/expresso-shop-web/dev-values.yaml
+        cat << 'EOF' >> $WORKSPACE/expresso/expresso-shop-web/dev-values.yaml
         replicaCount: 1
         image:
           repository: hossambarakat/espresso-shop-web
