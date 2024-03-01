@@ -88,7 +88,7 @@ pipeline{
                 git add -A
                 git commit -m "commit from Jekins"
 
-                git push origin 
+                git push origin  main
 
                """
                    
