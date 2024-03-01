@@ -53,7 +53,7 @@ pipeline{
         image:
           repository: hossambarakat/espresso-shop-product-catalog
           pullPolicy: IfNotPresent
-          tag: '${params.webtag}'
+          tag: \'${params.webtag}'
         EOF
    """
  sh """
@@ -62,7 +62,7 @@ pipeline{
         image:
           repository: hossambarakat/espresso-shop-reviews
           pullPolicy: IfNotPresent
-          tag:   '${params.reviewstag}'
+          tag:   \'${params.reviewstag}'
         EOF   
   """
    sh """   
@@ -71,7 +71,7 @@ pipeline{
         image:
           repository: hossambarakat/espresso-shop-web
           pullPolicy: IfNotPresent
-          tag: '${params.webtag}' 
+          tag: \'${params.webtag}' 
         EOF
     """
   sh """
