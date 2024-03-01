@@ -31,23 +31,27 @@ pipeline{
     stages{
 
 
-      stage('Cleaning WSpace') {
-            steps {
-                cleanWs() // Clean workspace before build
-            }
-        }
+    //   stage('Cloning') {
+    //         steps {
+    //           script{
+    //             """
+    //             rm -rf expresso || true 
+    //             git clone https://github.com/JQuay/expresso.git
+    //             """
+    //           }
+    //         }
+    //     }
 
         stage('Dev Deployment'){
 
 
            steps{
+
+
+             dir("$WORKSPACE"){
             script{
                    
                 sh """
-                rm -rf expresso || true 
-                git clone git@github.com:JQuay/expresso.git
-                cd  $WORKSPACE/expresso 
-
         cat << EOF > expresso-shop-product/dev-values.yaml
         replicaCount: 1
         image:
@@ -55,9 +59,9 @@ pipeline{
           pullPolicy: IfNotPresent
           tag: ${params.webtag} 
         EOF
-   """
- sh """
-          cd  $WORKSPACE/expresso 
+                """
+        
+              sh """
         cat << EOF > expresso-shop-reviews/dev-values.yaml
         replicaCount: 1
         image:
@@ -65,9 +69,8 @@ pipeline{
           pullPolicy: IfNotPresent
           tag: ${params.reviewstag} 
         EOF   
-        """
-   sh """   
-        cd  $WORKSPACE/expresso 
+      """
+        sh """
         cat << EOF > expresso-shop-web/dev-values.yaml
         replicaCount: 1
         image:
@@ -75,25 +78,45 @@ pipeline{
           pullPolicy: IfNotPresent
           tag: ${params.webtag} 
         EOF
-     
-                   """
-                   sh """
-                cd $WORKSPACE/expresso
+        
 
+                   """
+               sh """
                 git config --global user.name "JQuay"
                 git config --global user.email "josephquayson877@gmail.com"
 
                 git add -A
-                git commit -m "commit from Jenkins"
-                git push 
-                """
+                git commit -m "commit from Jekins"
+
+                git push origin 
+
+               """
                    
             }
+           }
            }
         }
 
         
            
+    
+    //   stage('update values file'){
+
+    //     steps{
+    //         script{
+    //             """
+    //             cd $WORKSPACE/expresso
+
+    //             git config --global user.name "JQuay"
+    //             git config --global user.email "josephquayson877@gmail.com"
+
+    //             git add -A
+    //             git commit -m "commit from Jekins"
+    //             git push origin main
+    //             """
+    //         }
+    //     }
+    //   }
  
 
 
@@ -239,10 +262,10 @@ pipeline{
 
 
 
-        //  stage('Cleaning WSpace') {
-        //     steps {
-        //         cleanWs() // Clean workspace before build
-        //     }
-        // }
+         stage('Cleaning WSpace') {
+            steps {
+                cleanWs() // Clean workspace before build
+            }
+        }
     }
 }
