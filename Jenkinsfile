@@ -48,31 +48,31 @@ pipeline{
                 git clone git@github.com:JQuay/expresso.git
                    """
   sh """
-        cat << "EOF" > \$WORKSPACE/expresso/expresso-shop-product/dev-values.yaml
+        cat << "EOF" > $WORKSPACE/expresso/expresso-shop-product/dev-values.yaml
         replicaCount: 1
         image:
           repository: hossambarakat/espresso-shop-product-catalog
           pullPolicy: IfNotPresent
           tag: '${params.webtag}'
-        "EOF"
+        EOF
    """
  sh """
-        cat << "EOF" > \$WORKSPACE/expresso/expresso-shop-reviews/dev-values.yaml
+        cat << "EOF" > $WORKSPACE/expresso/expresso-shop-reviews/dev-values.yaml
         replicaCount: 1
         image:
           repository: hossambarakat/espresso-shop-reviews
           pullPolicy: IfNotPresent
           tag:   '${params.reviewstag}'
-        "EOF"   
+        EOF
   """
    sh """   
-        cat << "EOF" > \$WORKSPACE/expresso/expresso-shop-web/dev-values.yaml
+        cat << "EOF" > $WORKSPACE/expresso/expresso-shop-web/dev-values.yaml
         replicaCount: 1
         image:
           repository: hossambarakat/espresso-shop-web
           pullPolicy: IfNotPresent
           tag: '${params.webtag}' 
-        "EOF"
+        EOF
     """
   sh """
                 cd $WORKSPACE/expresso
