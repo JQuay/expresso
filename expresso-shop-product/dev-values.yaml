@@ -3,5 +3,5 @@
           repository: hossambarakat/espresso-shop-product-catalog
           pullPolicy: IfNotPresent
           tag: 'latest'
-        EOF
+
    
