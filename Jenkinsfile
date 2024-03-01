@@ -54,7 +54,7 @@ pipeline{
           repository: hossambarakat/espresso-shop-product-catalog
           pullPolicy: IfNotPresent
           tag: '${params.webtag}'
-        \EOF
+        
    """
  sh """
         cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-reviews/dev-values.yaml
@@ -63,7 +63,7 @@ pipeline{
           repository: hossambarakat/espresso-shop-reviews
           pullPolicy: IfNotPresent
           tag:   '${params.reviewstag}'
-        \EOF
+        
   """
    sh """   
         cat << 'EOF' > $WORKSPACE/expresso/expresso-shop-web/dev-values.yaml
@@ -72,7 +72,7 @@ pipeline{
           repository: hossambarakat/espresso-shop-web
           pullPolicy: IfNotPresent
           tag: '${params.webtag}' 
-        \EOF
+        
     """
   sh """
                 cd $WORKSPACE/expresso
