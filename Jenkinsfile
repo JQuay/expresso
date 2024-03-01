@@ -52,7 +52,7 @@ pipeline{
             script{
                    
                 sh """
-        cat << EOF > expresso/expresso-shop-product/dev-values.yaml
+        cat << EOF > expresso-shop-product/dev-values.yaml
         replicaCount: 1
         image:
           repository: hossambarakat/espresso-shop-product-catalog
@@ -62,7 +62,7 @@ pipeline{
                 """
         
               sh """
-        cat << EOF > expresso/expresso-shop-reviews/dev-values.yaml
+        cat << EOF > expresso-shop-reviews/dev-values.yaml
         replicaCount: 1
         image:
           repository: hossambarakat/espresso-shop-reviews
@@ -71,7 +71,7 @@ pipeline{
         EOF   
       """
         sh """
-        cat << EOF > expresso/expresso-shop-web/dev-values.yaml
+        cat << EOF > expresso-shop-web/dev-values.yaml
         replicaCount: 1
         image:
           repository: hossambarakat/espresso-shop-web
