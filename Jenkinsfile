@@ -29,14 +29,20 @@ pipeline{
         buildDiscarder(logRotator(numToKeepStr: '3')) 
     }
     stages{
+  
 
+     stage('Cleaning WSpace') {
+            steps {
+                cleanWs() // Clean workspace before build
+            }
+        }
 
       stage('Cloning') {
             steps {
               script{
                 """
                 rm -rf expresso || true 
-                git clone https://github.com/JQuay/expresso.git
+                git clone git clone git@github.com:JQuay/expresso.git
                 """
               }
             }
@@ -88,7 +94,7 @@ pipeline{
                 git add -A
                 git commit -m "commit from Jekins"
 
-                git push origin main
+                git push -f
 
                """
                    
@@ -262,10 +268,10 @@ pipeline{
 
 
 
-         stage('Cleaning WSpace') {
-            steps {
-                cleanWs() // Clean workspace before build
-            }
-        }
+        //  stage('Cleaning WSpace') {
+        //     steps {
+        //         cleanWs() // Clean workspace before build
+        //     }
+        // }
     }
 }
