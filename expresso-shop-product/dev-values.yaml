@@ -1,7 +1,0 @@
-        replicaCount: 1
-        image:
-          repository: hossambarakat/espresso-shop-product-catalog
-          pullPolicy: IfNotPresent
-          tag: 'latest'
-
-   
