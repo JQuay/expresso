@@ -3,5 +3,5 @@
           repository: hossambarakat/espresso-shop-reviews
           pullPolicy: IfNotPresent
           tag:   'latest'
-        EOF   
+        
   

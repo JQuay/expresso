@@ -3,5 +3,6 @@
           repository: hossambarakat/espresso-shop-web
           pullPolicy: IfNotPresent
           tag: 'latest' 
-        EOF
+
+        
     
